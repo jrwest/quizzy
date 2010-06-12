@@ -16,5 +16,5 @@ World do
 end
 
 Before do
-  Mongoid.database.collections.each(&:drop)
+  Mongoid.database.collections.reject { |c| c.name == "system.indexes" }.each(&:drop)
 end

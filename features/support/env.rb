@@ -14,3 +14,7 @@ World do
   include Spec::Expectations
   include Spec::Matchers
 end
+
+Before do
+  Mongoid.database.collections.each(&:drop)
+end

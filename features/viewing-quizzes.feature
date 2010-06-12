@@ -11,3 +11,22 @@ Feature: Viewing Quizzes
     Given no quizzes exist
     When I follow "View Quizzes"
     Then I should see "There are currently 0 quizzes"
+
+  Scenario: One Quiz Exists
+    Given a quiz "My First Quiz" 
+    When I follow "View Quizzes"
+    Then I should see "There are currently 1 quiz"
+    And I should see "My First Quiz"
+
+  Scenario: Multiple Quizzes Exist
+    Given the quizzes:
+      | name           |
+      | My First Quiz  |
+      | My Second Quiz |
+      | My Third Quiz  |
+    When I follow "View Quizzes"
+    Then I should see "There are currently 3 quizzes"
+    And I should see "My First Quiz"
+    And I should see "My Second Quiz"
+    And I should see "My Thir Quiz"
+

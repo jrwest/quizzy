@@ -6,9 +6,8 @@ Dir[File.dirname(__FILE__) + '/models/*'].each { |f| require f }
 
 set :views, File.join(File.dirname(__FILE__), 'views')
 
-Before do 
-  Mongoid.database = Mongo::Connection.new.db('quizzy')
-end
+
+Mongoid.database = Mongo::Connection.new.db('quizzy')
 
 get '/' do
   haml :index

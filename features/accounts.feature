@@ -1,4 +1,4 @@
-Feature Name: Accounts
+Feature: Accounts
 
    As a quizzy user
    I want an account

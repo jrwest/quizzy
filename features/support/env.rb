@@ -15,6 +15,17 @@ World do
   include Spec::Matchers
 end
 
+def cleanable_collections
+  Mongoid.database.collections.reject { |c| c.name == "system.indexes" }
+end
+
+#hooks
+
 Before do
-  Mongoid.database.collections.reject { |c| c.name == "system.indexes" }.each(&:drop)
+  cleanable_collections.each(&:drop)
+end
+
+
+After do
+  cleanable_collections.each(&:drop)
 end

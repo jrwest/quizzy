@@ -15,6 +15,18 @@ get '/' do
 end
 
 get '/quizzes' do
+  @quizzes = Quiz.all
   haml :quizzes
+end
+
+helpers do 
+  def is_or_are(num)
+    num == 1 ? "is" : "are"
+  end
+
+  def pluralize(word, num)
+    num == 1 ? word : word.pluralize
+  end
+
 end
 

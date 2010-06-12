@@ -28,5 +28,5 @@ Feature: Viewing Quizzes
     Then I should see "There are currently 3 quizzes"
     And I should see "My First Quiz"
     And I should see "My Second Quiz"
-    And I should see "My Thir Quiz"
+    And I should see "My Third Quiz"
 

@@ -15,7 +15,7 @@ Feature: Viewing Quizzes
   Scenario: One Quiz Exists
     Given a quiz "My First Quiz" 
     When I follow "View Quizzes"
-    Then I should see "There are currently 1 quiz"
+    Then I should see "There is currently 1 quiz"
     And I should see "My First Quiz"
 
   Scenario: Multiple Quizzes Exist

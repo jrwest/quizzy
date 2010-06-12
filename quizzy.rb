@@ -1,18 +1,20 @@
-require 'sinatra/base'
+require 'sinatra'
 require 'haml'
-require 'sinatra/mongoid'
+require 'mongoid'
 
 Dir[File.dirname(__FILE__) + '/models/*'].each { |f| require f }
 
-class Quizzy < Sinatra::Base
-  set :views, File.join(File.dirname(__FILE__), 'views')
-  set :mongo_db, 'quizzy'
+set :views, File.join(File.dirname(__FILE__), 'views')
 
-  get '/' do
-    haml :index
-  end
-
-  get '/quizzes' do
-    haml :quizzes
-  end
+Before do 
+  Mongoid.database = Mongo::Connection.new.db('quizzy')
 end
+
+get '/' do
+  haml :index
+end
+
+get '/quizzes' do
+  haml :quizzes
+end
+

@@ -6,10 +6,10 @@ require 'capybara'
 require 'capybara/cucumber'
 require 'spec'
 
-Quizzy.set(:environment, :test)
+Sinatra::Application.set(:environment, :test)
 
 World do
-  Capybara.app = Quizzy
+  Capybara.app = Sinatra::Application
   include Capybara
   include Spec::Expectations
   include Spec::Matchers

@@ -1,0 +1,15 @@
+%form{:method => "post", :action => "/accounts"}
+  %fieldset
+    %legend Create New Account
+    %ul 
+      %li
+        %label{:for => "account_name"} Account Name
+        %input{:type => "text", :name => "account[name]", :id => "account_name"}/
+      %li
+        %label{:for => "account_password"} Password
+        %input{:type => "password", :name => "account[password]", :id => "account_password"}/
+      %li
+        %label{:for => "account_confirm_password"} Confirm Password
+        %input{:type => "password", :name => "account[confirm_password]", :id => "account_confirm_password"}/
+      %li
+        %input{:type => "submit", :value => "Create"}

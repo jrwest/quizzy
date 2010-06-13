@@ -18,6 +18,15 @@ get '/quizzes' do
   haml :quizzes
 end
 
+post '/accounts' do
+  Account.create(params["account"])
+  redirect '/'
+end
+
+get '/accounts/create' do
+  haml :new_account
+end
+
 helpers do 
   def is_or_are(num)
     num == 1 ? "is" : "are"

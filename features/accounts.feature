@@ -7,8 +7,9 @@ Feature: Accounts
    Scenario: Account Creation Page
      Given I am on the homepage
      When I follow "Create New Account"
-     Then I should be the Create New Account Page
+     Then I should be on the Create New Account Page
      And I should see "Create New Account"
+
     
     Scenario: Create Valid Account
       Given I am on the Create New Account Page

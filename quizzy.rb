@@ -33,6 +33,8 @@ end
 
 post '/login' do
   if account = Account.authorize(params["username"], params["password"])
+    session["account_name"] = account.name
+    session["account_last_login"] = Time.now
     redirect '/quizzes'
   else
     redirect '/login?error=true'

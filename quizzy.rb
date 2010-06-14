@@ -49,6 +49,13 @@ get '/quizzes/view/:name/nq' do
   haml :new_question
 end
 
+post '/quizzes/score' do
+  @quiz = Quiz.first(:conditions => {:name => params["quiz_name"]})
+  @score = @quiz.score(params["answers"])
+  @percent_correct = ((@score.first.to_f / @quiz.questions.count.to_f) * 100).to_i.to_s + "%"
+  haml :score
+end
+
 post '/accounts' do
   Account.create(params["account"])
   redirect '/'

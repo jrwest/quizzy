@@ -25,4 +25,32 @@ Feature: Taking Quizzes
   Scenario: Authorized
     When I follow "Some Quiz"
     Then I should be on the quiz page for "Some Quiz"
-      
+
+  Scenario: Getting All Questions Correct
+    Given I am on the quiz page for "Some Quiz"
+    When I answer "true,false,false,true,true"
+    And I press "Score"
+    Then I should be on the Score Page
+    And I should see "Your Score for Some Quiz"
+    And I should see "5/5 (100%)"
+    And I should see "Correct Answers to Questions 1, 2, 3, 4, 5"
+    And I should not see "Wrong Answers"
+
+  Scenario: Getting Some Questions Wrong and Some Correct
+    Given I am on the quiz page for "Some Quiz"
+    When I answer "true,true,false,true,false"
+    And I press "Score"
+    Then I should be on the Score Page
+    And I should see "Your Score for Some Quiz"
+    And I should see "3/5 (60%)"
+    And I should see "Correct Answers to Questions 1, 3, 4"
+    And I should see "Wrong Answers to Questions 2, 5"
+
+  Scenario: Getting All Questions Wrong
+    Given I am on the quiz page for "Some Quiz"
+    When I answer "false,true,true,false,false"
+    And I press "Score"
+    Then I should be on the Score Page
+    And I should see "Your Score for Some Quiz"
+    And I should see "0/5 (0%)"
+    And I should see "Wrong Answers to Questions 1, 2, 3, 4, 5"

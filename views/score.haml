@@ -1,0 +1,11 @@
+%h1 
+  Your Score for 
+  = "#{@quiz.name} #{@score.first}/#{@quiz.questions.count} (#{@percent_correct})"
+- if @score[1].size > 0
+  %h2
+    Correct Answers to Questions 
+    = @score[1].join(', ')
+- if @score.last.size > 0
+  %h2
+    Wrong Answers to Questions
+    = @score.last.join(', ')

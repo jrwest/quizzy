@@ -1,6 +1,7 @@
 - if @quiz.author == session["account_name"]
   %a{:href => "/quizzes/view/#{@quiz.to_param}/nq"} new question
 %form{:method => "post", :action => "/quizzes/score"}
+  %input{:type => "hidden", :name => "quiz_name", :id => "quiz_name", :value => "#{@quiz.name}"}/
   %fieldset
     %legend
       = "#{@quiz.name} (#{@quiz.questions.count} #{pluralize('question', @quiz.questions.count)})"
@@ -12,3 +13,5 @@
           %input{:type => "radio", :name => "answers[#{q.id}]", :id => "question_#{q.id}_true", :value => "true"}/
           %label{:for => "question_#{q.id}_false"} false
           %input{:type => "radio", :name => "answers[#{q.id}]", :id => "question_#{q.id}_false", :value => "false"}/
+      %li
+        %input{:type => "submit", :value => "Score"}

@@ -22,6 +22,8 @@ module NavigationHelpers
     when /Create Question Page for "([^"]+)"/
       quiz = Quiz.first(:conditions => {:name => $1})
       "/quizzes/view/#{quiz.to_param}/nq"
+    when /the Score/
+      '/quizzes/score'
     when /Create New Account/
       '/accounts/create'
     when /Authorization/

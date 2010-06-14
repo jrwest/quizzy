@@ -17,10 +17,18 @@ Given /^a quiz "([^"]*)" with author "([^"]*)" and questions:$/ do |quiz_name, a
   end
 end
 
-
 Given /^the quizzes:$/ do |quizzes|
   quizzes.hashes.each do |quiz|
     Given "a quiz \"#{quiz['name']}\""
+  end
+end
+
+When /^I answer "([^"]*)"$/ do |answers|
+  param = URI.parse(current_url).path.split('/').last
+  quiz = Quiz.from_param(param)
+  answers = answers.split(',').map { |a| a.strip.downcase }
+  quiz.questions.each do |q|
+    choose("question_#{q.id}_#{answers.shift}")
   end
 end
 

@@ -50,3 +50,8 @@ Feature: Creating Quizzes
     Then I should be on the quiz page for "My Quiz"
     And I should see "2 questions"
     And I should see "This is a second true/false question?"
+
+  Scenario: Do Not Present New Question Option to User That is Not Quiz Autor
+    Given a quiz "Some Other Quiz" with author "somebodyelse"
+    And I am on the quiz page for "Some Other Quiz"
+    Then I should not see "new question"

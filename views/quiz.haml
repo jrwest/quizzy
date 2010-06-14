@@ -1,4 +1,5 @@
-%a{:href => "/quizzes/view/#{@quiz.to_param}/nq"} new question
+- if @quiz.author == session["account_name"]
+  %a{:href => "/quizzes/view/#{@quiz.to_param}/nq"} new question
 %form{:method => "post", :action => "/quizzes/score"}
   %fieldset
     %legend

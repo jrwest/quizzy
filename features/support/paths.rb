@@ -14,6 +14,11 @@ module NavigationHelpers
       '/'
     when /the Quizzes/  
       '/quizzes'
+    when /Create Quiz/
+      '/quizzes/create'
+    when /quiz page for "([^"]+)"/
+      quiz = Quiz.first(:conditions => {:name => $1})
+      "/quizzes/#{quiz.to_param}"
     when /Create New Account/
       '/accounts/create'
     when /Authorization/

@@ -11,3 +11,7 @@ Given /^the quizzes:$/ do |quizzes|
     Given "a quiz \"#{quiz['name']}\""
   end
 end
+
+Then /^a quiz with name "([^"]*)" and author "([^"]*)" should exist$/ do |quiz_name, quiz_author|
+  Quiz.where(:name => quiz_name, :author => quiz_author).should_not be_empty
+end

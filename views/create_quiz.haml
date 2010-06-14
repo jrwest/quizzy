@@ -1,0 +1,9 @@
+%form{:method => "post", :action => "/quizzes"}
+  %fieldset
+    %legend Create New Quizzy
+    %ul
+      %li
+        %label{:for => "quiz_name"} Quiz Name
+        %input{:type => "text", :name => "quiz[name]", :id => "quiz_name"}/
+      %li
+        %input{:type => "submit", :value => "Save"}/

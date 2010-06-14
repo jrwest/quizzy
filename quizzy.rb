@@ -18,6 +18,17 @@ get '/quizzes' do
   haml :quizzes
 end
 
+post '/quizzes' do
+  redirect_unless_authorized
+  quiz = Quiz.create(params["quiz"].merge({"author" => session["account_name"]}))
+  redirect "/quizzes/#{quiz.to_param}"
+end
+
+get '/quizzes/create' do
+  redirect_unless_authorized
+  haml :create_quiz
+end
+
 post '/accounts' do
   Account.create(params["account"])
   redirect '/'
@@ -41,6 +52,11 @@ post '/login' do
   end
 end
 
+get '/logout' do
+  session["account_name"] = nil
+  session["account_last_login"] = nil
+end
+
 helpers do 
   def is_or_are(num)
     num == 1 ? "is" : "are"
@@ -50,5 +66,12 @@ helpers do
     num == 1 ? word : word.pluralize
   end
 
+  def authorized?
+    !(session["account_name"].nil?) && !(session["account_last_login"].nil?)
+  end
+
+  def redirect_unless_authorized
+    redirect '/login' unless authorized?
+  end
 end
 

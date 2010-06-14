@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'haml'
 require 'mongoid'
+require 'hyper_graph'
 
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
 
@@ -53,6 +54,8 @@ post '/quizzes/score' do
   @quiz = Quiz.first(:conditions => {:name => params["quiz_name"]})
   @score = @quiz.score(params["answers"])
   @percent_correct = ((@score.first.to_f / @quiz.questions.count.to_f) * 100).to_i.to_s + "%"
+  session[:last_score] = @percent_correct
+  session[:last_quiz] = @quiz.name
   haml :score
 end
 
@@ -84,6 +87,31 @@ get '/logout' do
   session["account_last_login"] = nil
 end
 
+get '/post' do
+  redirect_unless_was_quizzed
+  redirect HyperGraph.authorize_url(facebook_api["client_id"], 
+                                    facebook_api["redirect_uri"], :scope => facebook_api["scope"], :display => facebook_api["display"])
+end
+
+get '/perform_post' do
+  redirect '/quizzes' if session[:fb_access_token].nil?
+  graph = HyperGraph.new(session[:fb_access_token])
+  graph.post('me/feed', :message => "I took the Quizzy Quiz #{session[:last_quiz]} and scored a #{session[:last_score]}")
+  redirect '/post_complete'
+end
+
+get '/post_complete' do
+  "Your Post is Complete <a href='/quizzes'>Take Another</a>"
+end
+
+get '/callback' do
+  session[:fb_access_token] = HyperGraph.get_access_token(facebook_api["client_id"], 
+                                                          facebook_api["client_secret"], 
+                                                          facebook_api["redirect_uri"], 
+                                                          params["code"])
+  redirect '/perform_post'
+end
+
 helpers do 
   def is_or_are(num)
     num == 1 ? "is" : "are"
@@ -99,6 +127,18 @@ helpers do
 
   def redirect_unless_authorized
     redirect '/login' unless authorized?
+  end
+
+  def was_quizzed?
+    !(session[:last_quiz].nil?) && !(session[:last_score].nil?)
+  end
+
+  def redirect_unless_was_quizzed
+    redirect '/quizzes' unless was_quizzed?
+  end
+
+  def facebook_api
+    @facebook_api ||= YAML::load_file('fb.yml')
   end
 end
 

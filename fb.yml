@@ -1,0 +1,5 @@
+client_id: 105305622852764
+client_secret: 0d61479e60964460aae9927064f813ff
+redirect_uri: http://localhost:3000/callback
+scope: publish_stream
+display: page

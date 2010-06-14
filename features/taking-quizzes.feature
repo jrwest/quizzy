@@ -14,10 +14,11 @@ Feature: Taking Quizzes
       | Question 3    | false  |
       | Question 4    | true   |
       | Question 5    | true   |
-    And I am on the Quiz Page
+    And I am on the Quizzes Page
 
   Scenario: Unauthorized
     Given an unauthorized account
+    And I am on the Quizzes Page
     When I follow "Some Quiz"
     Then I should be on the Authorization Page
 

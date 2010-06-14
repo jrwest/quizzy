@@ -10,6 +10,14 @@ Given /^a quiz "([^"]*)" with author "([^"]*)"$/ do |quiz_name, author|
   Quiz.create(:name => quiz_name, :author => author)
 end
 
+Given /^a quiz "([^"]*)" with author "([^"]*)" and questions:$/ do |quiz_name, author, questions|
+  quiz = Quiz.create(:name => quiz_name, :author => author)
+  questions.hashes.each do |q|
+    quiz.questions.create(q)
+  end
+end
+
+
 Given /^the quizzes:$/ do |quizzes|
   quizzes.hashes.each do |quiz|
     Given "a quiz \"#{quiz['name']}\""

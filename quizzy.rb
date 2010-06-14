@@ -30,6 +30,7 @@ get '/quizzes/create' do
 end
 
 get '/quizzes/view/:name' do 
+  redirect_unless_authorized
   @quiz = Quiz.from_param(params[:name])
   haml :quiz
 end

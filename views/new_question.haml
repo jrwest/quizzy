@@ -1,0 +1,17 @@
+%form{:method => "post", :action => "/quizzes/view/#{@quiz.to_param}"}
+  %fieldset
+    %legend
+      Add Question to
+      = @quiz.name
+    %ul
+      %li
+        %label{:for => "question_text"} Question
+        %input{:type => "text", :name => "question[text]", :id => "question_text"}/
+      %li
+        %label{:for => "question_answer_true"} true
+        %input{:type => "radio", :name => "question[answer]", :id => "question_answer_true", :value => "true"}/
+      %li
+        %label{:for => "question_answer_false"} false
+        %input{:type => "radio", :name => "question[answer]", :id => "question_answer_false", :value => "false"}/
+      %li
+        %input{:type => "submit", :value => "Save"}/

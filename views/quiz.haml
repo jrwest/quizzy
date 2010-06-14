@@ -1,0 +1,13 @@
+%a{:href => "/quizzes/view/#{@quiz.to_param}/nq"} new question
+%form{:method => "post", :action => "/quizzes/score"}
+  %fieldset
+    %legend
+      = "#{@quiz.name} (#{@quiz.questions.count} #{pluralize('question', @quiz.questions.count)})"
+    %ul
+      - @quiz.questions.each do |q|
+        %li
+          = q.text
+          %label{:for => "question_#{q.id}_true"} true
+          %input{:type => "radio", :name => "answers[#{q.id}]", :id => "question_#{q.id}_true", :value => "true"}/
+          %label{:for => "question_#{q.id}_false"} false
+          %input{:type => "radio", :name => "answers[#{q.id}]", :id => "question_#{q.id}_false", :value => "false"}/

@@ -7,6 +7,8 @@ class Quiz
   validates_presence_of :name
   validates_format_of :name, :with => /^([a-z]+\s*)+$/i
 
+  embeds_many :questions
+
   def to_param
     name.split(' ').map { |w| w.downcase }.join('-')
   end

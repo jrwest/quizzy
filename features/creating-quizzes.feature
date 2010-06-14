@@ -23,4 +23,30 @@ Feature: Creating Quizzes
     And I press "Save"
     Then a quiz with name "My Quiz" and author "myaccount" should exist
     And I should be on the quiz page for "My Quiz"
+    And I should see "My Quiz"
+    And I should see "0 questions"
+
+  Scenario: Edit Quiz by Authorized User
+    Given a quiz "My Quiz" with author "myaccount"
+    And I am on the quiz page for "My Quiz"
+    When I follow "new question"
+    Then I should be on the Create Question Page for "My Quiz"
+    And I should see "Add Question to My Quiz"
     
+  Scenario: Add Questions to Quiz
+    Given a quiz "My Quiz" with author "myaccount"
+    And I am on the quiz page for "My Quiz"
+    When I follow "new question"
+    And I fill in "Question" with "This is a first true/false question?"
+    And I choose "true"
+    And I press "Save"
+    Then I should be on the quiz page for "My Quiz"
+    And I should see "1 question"
+    And I should see "This is a first true/false question?"
+    When I follow "new question"
+    And I fill in "Question" with "This is a second true/false question?"
+    And I choose "false"
+    And I press "Save"
+    Then I should be on the quiz page for "My Quiz"
+    And I should see "2 questions"
+    And I should see "This is a second true/false question?"

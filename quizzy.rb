@@ -2,7 +2,7 @@ require 'sinatra'
 require 'haml'
 require 'mongoid'
 
-Dir[File.dirname(__FILE__) + '/models/*'].each { |f| require f }
+Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
 
 set :views, File.join(File.dirname(__FILE__), 'views')
 enable :sessions
@@ -21,12 +21,31 @@ end
 post '/quizzes' do
   redirect_unless_authorized
   quiz = Quiz.create(params["quiz"].merge({"author" => session["account_name"]}))
-  redirect "/quizzes/#{quiz.to_param}"
+  redirect "/quizzes/view/#{quiz.to_param}"
 end
 
 get '/quizzes/create' do
   redirect_unless_authorized
   haml :create_quiz
+end
+
+get '/quizzes/view/:name' do 
+  @quiz = Quiz.from_param(params[:name])
+  haml :quiz
+end
+
+post '/quizzes/view/:name' do 
+  @quiz = Quiz.from_param(params[:name])
+  if @quiz.questions.create(params["question"])
+    redirect "/quizzes/view/#{@quiz.to_param}"
+  else
+    redirect "/quizzes/view/#{@quiz.to_param}/nq"
+  end
+end
+
+get '/quizzes/view/:name/nq' do
+  @quiz = Quiz.from_param(params[:name])
+  haml :new_question
 end
 
 post '/accounts' do

@@ -56,4 +56,18 @@ describe Account do
   it "cannot be created with non-matching passwords" do
     Account.new(:name => "myaccount", :password => "abc", :password => "def").should_not be_valid
   end
+  describe "authorization" do
+    before(:each) do
+      Account.create(:name => "myaccount", :password => "mypass", :confirm_password => "mypass")
+    end
+    it "returns an Account instance for the logging in account when given valid credentials" do
+      Account.authorize("myaccount", "mypass").name.should == "myaccount"
+    end
+    it "returns nil when given invalid account name" do
+      Account.authorize("nonexistent", "mypass").should be_nil
+    end
+    it "returns nil when given invalid password" do
+      Account.authorize("myaccount", "wrong").should be_nil
+    end
+  end
 end

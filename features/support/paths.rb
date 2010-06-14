@@ -12,9 +12,12 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-
+    when /the Quizzes/  
+      '/quizzes'
     when /Create New Account/
       '/accounts/create'
+    when /Authorization/
+      '/login'
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"

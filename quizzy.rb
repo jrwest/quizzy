@@ -5,7 +5,7 @@ require 'mongoid'
 Dir[File.dirname(__FILE__) + '/models/*'].each { |f| require f }
 
 set :views, File.join(File.dirname(__FILE__), 'views')
-
+enable :sessions
 
 Mongoid.database = Mongo::Connection.new.db('quizzy')
 
@@ -25,6 +25,18 @@ end
 
 get '/accounts/create' do
   haml :new_account
+end
+
+get '/login' do
+  haml :login
+end
+
+post '/login' do
+  if account = Account.authorize(params["username"], params["password"])
+    redirect '/quizzes'
+  else
+    redirect '/login?error=true'
+  end
 end
 
 helpers do 

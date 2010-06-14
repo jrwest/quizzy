@@ -13,6 +13,16 @@ class Account
   validates_format_of :name, :with => /^[a-z]+$/i
   validate :check_password
 
+  
+  def password_matches?(pass)
+    self.password_hash == encrypt_password(pass)
+  end
+
+  def self.authorize(username, password)
+    account = first(:conditions => {:name => username})
+    return account if account && account.password_matches?(password)
+  end
+
   private 
 
     def check_password

@@ -1,0 +1,13 @@
+%form{:method => "post", :action => "/login"}
+  %fieldset
+    %legend Log Into Quizzy
+    %ul
+      %li
+        %label{:for => "username"} username
+        %input{:type => "text", :name => "username", :id => "username"}/
+      %li
+        %label{:for => "password"} password
+        %input{:type => "text", :name => "password", :id => "password"}/
+      %li
+        %input{:type => "submit", :value => "Log In"}/
+      

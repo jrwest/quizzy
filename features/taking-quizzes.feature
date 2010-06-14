@@ -8,7 +8,7 @@ Feature: Taking Quizzes
     Given an account "myaccount" with password "mypassword"
     And the account "myaccount" with password "mypassword" is authorized
     And a quiz "Some Quiz" with author "someaccount" and questions:
-      | question text | answer |
+      | text          | answer |
       | Question 1    | true   |
       | Question 2    | false  |
       | Question 3    | false  |

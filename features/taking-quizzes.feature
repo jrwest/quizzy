@@ -17,7 +17,7 @@ Feature: Taking Quizzes
     And I am on the Quiz Page
 
   Scenario: Unauthorized
-    Given I am an authorized account
+    Given an unauthorized account
     When I follow "Some Quiz"
     Then I should be on the Authorization Page
 

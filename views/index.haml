@@ -4,5 +4,9 @@
     View Quizzes
   %a{:href => '/accounts/create'}
     Create New Account
-  %a{:href => '/login'}
-    Log In
+  - if authorized?
+    %a{:href => '/logout'}
+      Log Out
+  - else
+    %a{:href => '/login'}
+      Log In

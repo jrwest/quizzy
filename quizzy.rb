@@ -85,6 +85,7 @@ end
 get '/logout' do
   session["account_name"] = nil
   session["account_last_login"] = nil
+  redirect '/'
 end
 
 get '/post' do
